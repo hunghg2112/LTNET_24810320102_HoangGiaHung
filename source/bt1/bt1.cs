@@ -7,10 +7,6 @@ using System.Windows.Forms;
 
 namespace QuanLyKhachSan
 {
-    // ========================================================
-    // 1. MÔ HÌNH DỮ LIỆU (BOOKING MODEL)
-    // Thực thi INotifyPropertyChanged để tự động đồng bộ 2 chiều
-    // ========================================================
     public class BookingModel : INotifyPropertyChanged
     {
         private string bookingId;
@@ -70,29 +66,25 @@ namespace QuanLyKhachSan
         }
     }
 
-    // ========================================================
-    // 2. FORM QUẢN LÝ ĐẶT PHÒNG (frmBookingManager)
-    // ========================================================
     public class frmBookingManager : Form
     {
-        // Các Controls khu vực nhập liệu
+       
         private TextBox txtBookingId, txtCustomerName, txtIdentityCard, txtPricePerNight;
         private ComboBox cboRoomType;
         private DateTimePicker dtpCheckIn;
         private NumericUpDown numDays;
 
-        // Các nút bấm
+      
         private Button btnAdd, btnUpdate, btnDelete, btnRefresh;
 
-        // DataGridView & Validation
+  
         private DataGridView dgvBookings;
         private ErrorProvider errorProvider;
 
-        // Quản lý trạng thái đồng bộ 2 chiều
         private BindingList<BookingModel> bookingList = new BindingList<BookingModel>();
         private BindingSource bindingSource = new BindingSource();
 
-        // Biến tự động tăng Mã đặt phòng (BK001, BK002...)
+   
         private int autoIncrementId = 1;
 
         public frmBookingManager()
@@ -103,7 +95,7 @@ namespace QuanLyKhachSan
             TaoMaBookingTuDong();
         }
 
-        // --- DỰNG GIAO DIỆN BẰNG CODE ---
+
         private void TaoGiaoDien()
         {
             this.Text = "Quản Lý Đặt Phòng Khách Sạn (frmBookingManager)";
@@ -113,7 +105,7 @@ namespace QuanLyKhachSan
 
             errorProvider = new ErrorProvider { BlinkStyle = ErrorBlinkStyle.NeverBlink };
 
-            // Panel Nhập liệu
+      
             GroupBox gbInput = new GroupBox
             {
                 Text = "Thông tin đặt phòng",
@@ -121,7 +113,7 @@ namespace QuanLyKhachSan
                 Size = new Size(835, 150)
             };
 
-            // Hàng 1
+       
             gbInput.Controls.Add(new Label { Text = "Mã đặt:", Location = new Point(15, 28), AutoSize = true });
             txtBookingId = new TextBox { Location = new Point(100, 25), Width = 150, ReadOnly = true };
             gbInput.Controls.Add(txtBookingId);
@@ -134,7 +126,7 @@ namespace QuanLyKhachSan
             txtIdentityCard = new TextBox { Location = new Point(660, 25), Width = 140 };
             gbInput.Controls.Add(txtIdentityCard);
 
-            // Hàng 2
+    
             gbInput.Controls.Add(new Label { Text = "Loại phòng:", Location = new Point(15, 68), AutoSize = true });
             cboRoomType = new ComboBox { Location = new Point(100, 65), Width = 150, DropDownStyle = ComboBoxStyle.DropDownList };
             cboRoomType.Items.AddRange(new string[] { "Standard", "Deluxe", "VIP" });
@@ -149,14 +141,12 @@ namespace QuanLyKhachSan
             numDays = new NumericUpDown { Location = new Point(660, 65), Width = 140, Minimum = 1, Maximum = 365, Value = 1 };
             gbInput.Controls.Add(numDays);
 
-            // Hàng 3
             gbInput.Controls.Add(new Label { Text = "Giá/Đêm:", Location = new Point(15, 108), AutoSize = true });
             txtPricePerNight = new TextBox { Location = new Point(100, 105), Width = 150 };
             gbInput.Controls.Add(txtPricePerNight);
 
             this.Controls.Add(gbInput);
 
-            // Panel Chức năng (Buttons)
             btnAdd = new Button { Text = "Thêm đặt phòng", Location = new Point(15, 170), Width = 130, Height = 35 };
             btnAdd.Click += BtnAdd_Click;
             this.Controls.Add(btnAdd);
@@ -173,7 +163,7 @@ namespace QuanLyKhachSan
             btnRefresh.Click += BtnRefresh_Click;
             this.Controls.Add(btnRefresh);
 
-            // DataGridView
+            
             dgvBookings = new DataGridView
             {
                 Location = new Point(15, 215),
@@ -188,7 +178,6 @@ namespace QuanLyKhachSan
             this.Controls.Add(dgvBookings);
         }
 
-        // --- YÊU CẦU 1: KHỞI TẠO GRID BẰNG CODE (AutoGenerateColumns = false) ---
         private void KhoiTaoGrid()
         {
             dgvBookings.AutoGenerateColumns = false;
@@ -246,13 +235,11 @@ namespace QuanLyKhachSan
             });
         }
 
-        // --- YÊU CẦU ĐỒNG BỘ DATA BINDING 2 CHIỀU ---
         private void KhoiTaoBinding()
         {
             bindingSource.DataSource = bookingList;
             dgvBookings.DataSource = bindingSource;
 
-            // Thêm dữ liệu mẫu để thử nghiệm
             bookingList.Add(new BookingModel
             {
                 BookingId = "BK001",
@@ -266,20 +253,17 @@ namespace QuanLyKhachSan
             autoIncrementId = 2;
         }
 
-        // --- YÊU CẦU 2: KIỂM TRA HỢP LỆ (ERRORPROVIDER) ---
         private bool ValidateInputs()
         {
             errorProvider.Clear();
             bool isValid = true;
 
-            // 1. Tên khách hàng không được để trống
             if (string.IsNullOrWhiteSpace(txtCustomerName.Text))
             {
                 errorProvider.SetError(txtCustomerName, "Tên khách hàng không được để trống!");
                 isValid = false;
             }
 
-            // 2. CCCD phải đủ 9 hoặc 12 chữ số
             string identityPattern = @"^\d{9}$|^\d{12}$";
             if (!Regex.IsMatch(txtIdentityCard.Text.Trim(), identityPattern))
             {
@@ -287,7 +271,6 @@ namespace QuanLyKhachSan
                 isValid = false;
             }
 
-            // 3. Giá phòng phải là số lớn hơn 0
             if (!decimal.TryParse(txtPricePerNight.Text.Trim(), out decimal price) || price <= 0)
             {
                 errorProvider.SetError(txtPricePerNight, "Giá phòng phải là một số lớn hơn 0!");
@@ -297,13 +280,11 @@ namespace QuanLyKhachSan
             return isValid;
         }
 
-        // Tự động tạo mã đặt phòng dạng BK001, BK002...
         private void TaoMaBookingTuDong()
         {
             txtBookingId.Text = $"BK{autoIncrementId:D3}";
         }
 
-        // --- THAO TÁC THÊM ĐẶT PHÒNG ---
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             if (!ValidateInputs()) return;
@@ -326,7 +307,6 @@ namespace QuanLyKhachSan
             ClearInputForm();
         }
 
-        // --- YÊU CẦU 3: CẬP NHẬT DỮ LIỆU ĐỒNG BỘ XUỐNG BINDINGLIST ---
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
             if (bindingSource.Current == null)
@@ -339,7 +319,6 @@ namespace QuanLyKhachSan
 
             BookingModel selectedBooking = (BookingModel)bindingSource.Current;
 
-            // Cập nhật giá trị vào thuộc tính của Object -> INotifyPropertyChanged sẽ tự phát tín hiệu cập nhật lên DataGridView
             selectedBooking.CustomerName = txtCustomerName.Text.Trim();
             selectedBooking.IdentityCard = txtIdentityCard.Text.Trim();
             selectedBooking.RoomType = cboRoomType.SelectedItem.ToString();
@@ -351,7 +330,6 @@ namespace QuanLyKhachSan
             MessageBox.Show("Cập nhật thông tin thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        // --- YÊU CẦU 3: XÓA CÓ MESSAGEBOX XÁC NHẬN CẢNH BÁO ---
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             if (bindingSource.Current == null)
@@ -362,7 +340,6 @@ namespace QuanLyKhachSan
 
             BookingModel selectedBooking = (BookingModel)bindingSource.Current;
 
-            // Cảnh báo Yes/No
             DialogResult confirm = MessageBox.Show(
                 $"Bạn có chắc chắn muốn xóa đơn đặt phòng '{selectedBooking.BookingId}' của khách hàng '{selectedBooking.CustomerName}'?",
                 "Cảnh báo xóa",
@@ -378,7 +355,6 @@ namespace QuanLyKhachSan
             }
         }
 
-        // --- YÊU CẦU 3: CHỌN MỘT DÒNG ĐẨY NGHỊCH LÊN FORM ---
         private void DgvBookings_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvBookings.SelectedRows.Count > 0 && bindingSource.Current != null)
@@ -397,7 +373,6 @@ namespace QuanLyKhachSan
             }
         }
 
-        // LÀM MỚI FORM NHẬP LIỆU
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
             ClearInputForm();
@@ -417,10 +392,6 @@ namespace QuanLyKhachSan
             txtCustomerName.Focus();
         }
     }
-
-    // ========================================================
-    // 3. ĐIỂM CHẠY CHƯƠNG TRÌNH
-    // ========================================================
     static class Program
     {
         [STAThread]

@@ -29,8 +29,7 @@
 * **Hình ảnh minh họa Giao diện:**
 <<<<<<< Updated upstream
 ![Giao diện Bài 1](./screenshot/bt1.png)
-=======
-![Kết quả Bài 1](./screenshot/bt1.png)
+
 >>>>>>> Stashed changes
 *Mô tả: Giao diện quản lý đặt phòng, cho phép chọn dòng trên bảng để đẩy ngược dữ liệu lên các ô nhập liệu.*
 
@@ -41,8 +40,7 @@
 * **Hình ảnh minh họa Giao diện:**
 <<<<<<< Updated upstream
 ![Giao diện Bài 2](./screenshot/bt2.png)
-=======
-![Kết quả Bài 2](./screenshot/bt2.png)
+
 >>>>>>> Stashed changes
 
 *Mô tả: Giao diện quản lý nhân sự kèm hiển thị ảnh đại diện qua PictureBox và menu điều khiển tiêu chuẩn.*
@@ -54,8 +52,7 @@
 * **Hình ảnh minh họa Giao diện:**
 <<<<<<< Updated upstream
 ![Giao diện Bài 3](./screenshot/bt3.png)
-=======
-![Kết quả Bài 3](./screenshot/bt3.png)
+
 >>>>>>> Stashed changes
 
 *Mô tả: Khung ứng dụng chính điều hướng các phân hệ quản lý sinh viên, giảng viên và môn học dạng cửa sổ con.*
@@ -67,8 +64,7 @@
 * **Hình ảnh minh họa Giao diện:**
 <<<<<<< Updated upstream
 ![Giao diện Bài 4](./screenshot/bt4.png)
-=======
-![Kết quả Bài 4](./screenshot/bt4.png)
+
 >>>>>>> Stashed changes
 
 *Mô tả: Giao diện thống kê kho hàng chạy ngầm tải dữ liệu mà không gây ra hiện tượng Not Responding.*
@@ -80,8 +76,7 @@
 * **Hình ảnh minh họa Giao diện:**
 <<<<<<< Updated upstream
 ![Giao diện Bài 5](./screenshot/bt5.png)
-=======
-![Kết quả Bài 5](./screenshot/bt5.png)
+
 >>>>>>> Stashed changes
 
 *Mô tả: Màn hình giám sát nhiệt độ cảm biến thời gian thực, tự động đổi màu cảnh báo đỏ/xanh và ghi nhật ký vào DataGridView.*

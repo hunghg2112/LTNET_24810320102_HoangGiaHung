@@ -27,7 +27,7 @@
 * **Kỹ thuật áp dụng:** Khởi tạo cột DataGridView bằng code (`AutoGenerateColumns = false`), đồng bộ dữ liệu 2 chiều với `BindingList<T>` và `BindingSource`, kiểm tra hợp lệ dữ liệu nhập với `ErrorProvider`.
 
 * **Hình ảnh minh họa Giao diện:**
-![Giao diện Bài 1](./screenshot/bai1.png)
+![Giao diện Bài 1](./screenshot/bt1.png)
 *Mô tả: Giao diện quản lý đặt phòng, cho phép chọn dòng trên bảng để đẩy ngược dữ liệu lên các ô nhập liệu.*
 
 ### 2. Bài 2: Quản lý Hồ sơ Nhân sự & Lương
@@ -35,7 +35,7 @@
 * **Kỹ thuật áp dụng:** Sử dụng `OpenFileDialog` để chọn ảnh chân dung nhân viên, `SaveFileDialog` và `OpenFileDialog` để đọc/ghi file định dạng CSV, tích hợp `StatusStrip` cập nhật tự động tổng số nhân viên và quỹ lương theo thời gian thực.
 
 * **Hình ảnh minh họa Giao diện:**
-![Giao diện Bài 2](./screenshot/bai2.png)
+![Giao diện Bài 2](./screenshot/bt2.png)
 
 *Mô tả: Giao diện quản lý nhân sự kèm hiển thị ảnh đại diện qua PictureBox và menu điều khiển tiêu chuẩn.*
 
@@ -44,7 +44,7 @@
 * **Kỹ thuật áp dụng:** Xây dựng khung nhìn MDI Container (`IsMdiContainer = true`), quản lý vòng đời form con với thuật toán chống mở trùng lặp (`OpenOrActivate`), sắp xếp cửa sổ tự động (Cascade, Tile).
 
 * **Hình ảnh minh họa Giao diện:**
-![Giao diện Bài 3](./screenshot/bai3.png)
+![Giao diện Bài 3](./screenshot/bt3.png)
 
 *Mô tả: Khung ứng dụng chính điều hướng các phân hệ quản lý sinh viên, giảng viên và môn học dạng cửa sổ con.*
 
@@ -53,7 +53,7 @@
 * **Kỹ thuật áp dụng:** Lập trình bất đồng bộ với từ khóa `async` và `await`, bọc tác vụ nặng vào `Task.Run` để giải phóng luồng chính, kết hợp `CancellationTokenSource` để hủy tác vụ và `IProgress<T>` cập nhật thanh tiến trình mượt mà không khóa UI.
 
 * **Hình ảnh minh họa Giao diện:**
-![Giao diện Bài 4](./screenshot/bai4.png)
+![Giao diện Bài 4](./screenshot/bt4.png)
 
 *Mô tả: Giao diện thống kê kho hàng chạy ngầm tải dữ liệu mà không gây ra hiện tượng Not Responding.*
 
@@ -62,6 +62,6 @@
 * **Kỹ thuật áp dụng:** Thu thập dữ liệu định kỳ bằng Task Loop ngầm, tuân thủ nghiêm ngặt quy tắc Thread Safety trong WinForms bằng cơ chế kiểm tra `this.InvokeRequired` và gọi `this.Invoke()` để cập nhật an toàn lên giao diện.
 
 * **Hình ảnh minh họa Giao diện:**
-![Giao diện Bài 5](./screenshot/bai5.png)
+![Giao diện Bài 5](./screenshot/bt5.png)
 
 *Mô tả: Màn hình giám sát nhiệt độ cảm biến thời gian thực, tự động đổi màu cảnh báo đỏ/xanh và ghi nhật ký vào DataGridView.*

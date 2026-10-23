@@ -31,6 +31,8 @@
 ![Giao diện Bài 1](./screenshot/bt1.png)
 
 >>>>>>> Stashed changes
+
+
 *Mô tả: Giao diện quản lý đặt phòng, cho phép chọn dòng trên bảng để đẩy ngược dữ liệu lên các ô nhập liệu.*
 
 ### 2. Bài 2: Quản lý Hồ sơ Nhân sự & Lương

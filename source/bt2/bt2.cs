@@ -7,9 +7,7 @@ using System.Windows.Forms;
 
 namespace QuanLyNhanSu
 {
-    // ==========================================
-    // 1. MÔ HÌNH DỮ LIỆU NHÂN VIÊN
-    // ==========================================
+
     public class EmployeeModel
     {
         public string EmpId { get; set; }
@@ -19,27 +17,20 @@ namespace QuanLyNhanSu
         public string AvatarPath { get; set; }
     }
 
-    // ==========================================
-    // 2. FORM CHÍNH (GIAO DIỆN & LOGIC)
-    // ==========================================
     public class frmEmployeeManager : Form
     {
-        // Thanh điều khiển
         private MenuStrip menuStrip;
         private ToolStrip toolStrip;
         private StatusStrip statusStrip;
         private ToolStripStatusLabel lblTotalEmployees, lblTotalSalary, lblCurrentTime;
 
-        // Khu vực nhập liệu
         private TextBox txtEmpId, txtFullName, txtPosition;
         private NumericUpDown numBaseSalary;
         private PictureBox picAvatar;
         private Button btnChooseImage, btnAdd, btnDelete;
         
-        // Khu vực hiển thị
         private DataGridView dgvEmployees;
 
-        // Dữ liệu
         private BindingList<EmployeeModel> empList = new BindingList<EmployeeModel>();
         private BindingSource bindingSource = new BindingSource();
         private Timer timerClock;
@@ -59,7 +50,6 @@ namespace QuanLyNhanSu
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Font = new Font("Segoe UI", 9.5F);
 
-            // --- 1. MENUSTRIP ---
             menuStrip = new MenuStrip();
             ToolStripMenuItem menuFile = new ToolStripMenuItem("File");
             ToolStripMenuItem itemOpenCsv = new ToolStripMenuItem("Mở file CSV", null, BtnOpenCSV_Click);
@@ -76,7 +66,6 @@ namespace QuanLyNhanSu
             this.MainMenuStrip = menuStrip;
             this.Controls.Add(menuStrip);
 
-            // --- 2. TOOLSTRIP ---
             toolStrip = new ToolStrip { Location = new Point(0, 24) };
             ToolStripButton btnTsOpen = new ToolStripButton("📂 Mở CSV") { DisplayStyle = ToolStripItemDisplayStyle.Text };
             btnTsOpen.Click += BtnOpenCSV_Click;
@@ -88,7 +77,6 @@ namespace QuanLyNhanSu
             toolStrip.Items.AddRange(new ToolStripItem[] { btnTsOpen, btnTsSave, new ToolStripSeparator(), btnTsAdd });
             this.Controls.Add(toolStrip);
 
-            // --- 3. STATUSSTRIP ---
             statusStrip = new StatusStrip();
             lblTotalEmployees = new ToolStripStatusLabel("Tổng NV: 0");
             lblTotalSalary = new ToolStripStatusLabel("Tổng quỹ lương: 0 VNĐ");
@@ -97,12 +85,10 @@ namespace QuanLyNhanSu
             statusStrip.Items.AddRange(new ToolStripItem[] { lblTotalEmployees, new ToolStripStatusLabel(" | "), lblTotalSalary, lblCurrentTime });
             this.Controls.Add(statusStrip);
 
-            // Đồng hồ thời gian thực
             timerClock = new Timer { Interval = 1000 };
             timerClock.Tick += (s, e) => lblCurrentTime.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             timerClock.Start();
 
-            // --- 4. KHU VỰC NHẬP LIỆU (Bên trái) ---
             GroupBox gbInput = new GroupBox { Text = "Thông tin chi tiết", Location = new Point(15, 60), Size = new Size(300, 480) };
             
             gbInput.Controls.Add(new Label { Text = "Mã NV:", Location = new Point(15, 30), AutoSize = true });
@@ -139,7 +125,6 @@ namespace QuanLyNhanSu
 
             this.Controls.Add(gbInput);
 
-            // --- 5. DATA GRID VIEW (Bên phải) ---
             dgvEmployees = new DataGridView
             {
                 Location = new Point(330, 68),
@@ -156,11 +141,9 @@ namespace QuanLyNhanSu
 
         private void KhoiTaoDuLieu()
         {
-            // Thiết lập Binding
             bindingSource.DataSource = empList;
             dgvEmployees.DataSource = bindingSource;
 
-            // Định dạng cột Grid
             dgvEmployees.Columns["BaseSalary"].DefaultCellStyle.Format = "N0";
             dgvEmployees.Columns["BaseSalary"].HeaderText = "Mức lương";
             dgvEmployees.Columns["EmpId"].HeaderText = "Mã NV";
@@ -171,11 +154,7 @@ namespace QuanLyNhanSu
             empList.ListChanged += (s, e) => CapNhatStatusStrip(); // Tự động cập nhật khi list thay đổi
         }
 
-        // ==========================================
-        // CÁC HÀM XỬ LÝ NGHIỆP VỤ (YÊU CẦU 1, 2, 3)
-        // ==========================================
 
-        // YÊU CẦU 3: CẬP NHẬT STATUS STRIP
         private void CapNhatStatusStrip()
         {
             int totalEmp = empList.Count;
@@ -185,7 +164,6 @@ namespace QuanLyNhanSu
             lblTotalSalary.Text = $"Tổng quỹ lương: {totalSalary:N0} VNĐ";
         }
 
-        // YÊU CẦU 1: XỬ LÝ ẢNH (OPEN FILE DIALOG)
         private void BtnChooseImage_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -208,7 +186,6 @@ namespace QuanLyNhanSu
             }
         }
 
-        // THÊM NHÂN VIÊN
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtEmpId.Text) || string.IsNullOrWhiteSpace(txtFullName.Text))
@@ -232,7 +209,6 @@ namespace QuanLyNhanSu
             txtEmpId.Focus();
         }
 
-        // XÓA NHÂN VIÊN
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             if (bindingSource.Current != null)
@@ -245,7 +221,6 @@ namespace QuanLyNhanSu
             }
         }
 
-        // HIỂN THỊ DỮ LIỆU LÊN FORM KHI CLICK VÀO GRID
         private void DgvEmployees_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvEmployees.SelectedRows.Count > 0 && bindingSource.Current != null)
@@ -269,7 +244,6 @@ namespace QuanLyNhanSu
             }
         }
 
-        // YÊU CẦU 2: LƯU FILE CSV (SAVE FILE DIALOG)
         private void BtnSaveCSV_Click(object sender, EventArgs e)
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
@@ -284,9 +258,7 @@ namespace QuanLyNhanSu
                     {
                         using (StreamWriter sw = new StreamWriter(sfd.FileName))
                         {
-                            // Viết dòng tiêu đề
                             sw.WriteLine("EmpId,FullName,Position,BaseSalary,AvatarPath");
-                            // Viết dữ liệu
                             foreach (var emp in empList)
                             {
                                 sw.WriteLine($"{emp.EmpId},{emp.FullName},{emp.Position},{emp.BaseSalary},{emp.AvatarPath}");
@@ -302,7 +274,6 @@ namespace QuanLyNhanSu
             }
         }
 
-        // YÊU CẦU 2: ĐỌC FILE CSV (OPEN FILE DIALOG)
         private void BtnOpenCSV_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -346,9 +317,7 @@ namespace QuanLyNhanSu
         }
     }
 
-    // ==========================================
-    // 3. ĐIỂM CHẠY CHƯƠNG TRÌNH
-    // ==========================================
+
     static class Program
     {
         [STAThread]
